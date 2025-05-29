@@ -136,7 +136,7 @@
             border-left-width: 4px;
             padding: 1.25rem; /* p-5 */
             border-radius: 0.375rem; /* rounded-md */
-            margin-bottom: 1.5rem; /* Added for spacing between boxes if needed */
+            margin-bottom: 1.5rem; 
         }
 
         .info-box { border-color: #38bdf8; /* sky-400 */ }
@@ -483,17 +483,6 @@
                                 <li><strong>Conversión a CLP:</strong> Todos los montos en moneda extranjera deben convertirse a pesos chilenos usando el <strong class="text-red-400">tipo de cambio observado al 31 de diciembre</strong> del año que se informa.</li>
                             </ul>
                         </div>
-                        <div class="mt-4 info-box">
-                            <h5 class="info-box-title">Simulador de Ganancia de Capital (Ejemplo)</h5>
-                            <p class="text-sm info-box-content mb-2">Para rentas por venta de acciones (misma naturaleza, compradas y vendidas el mismo año):</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
-                                <div><label class="text-slate-200">Precio Compra (USD):</label><input type="number" id="compraUSD" class="sii-input p-1" readonly></div>
-                                <div><label class="text-slate-200">Precio Venta (USD):</label><input type="number" id="ventaUSD" class="sii-input p-1" readonly></div>
-                                <div><label class="text-slate-200">Tipo Cambio (31 Dic):</label><input type="number" id="tcGD" class="sii-input p-1" value="850" readonly></div>
-                            </div>
-                            <button class="sii-button text-sm py-1 px-2 mt-2" disabled>Calcular Ganancia (CLP)</button>
-                            <p class="text-sm info-box-content mt-1">Resultado: <span id="resultadoGanancia" class="font-bold"></span></p>
-                        </div>
                         <div class="mt-4 warning-box">
                              <p class="text-sm warning-box-content"><strong class="font-bold">¡No olvides Guardar!</strong> El formulario del SII suele tener un botón "Guardar Borrador". Úsalo frecuentemente para no perder tu avance.</p>
                         </div>
@@ -597,368 +586,245 @@
                     </div>
                     <div class="p-5 border border-yellow-700 rounded-lg bg-slate-800 hover:bg-slate-700/50 hover:shadow-lg transition-shadow">
                         <h3 class="text-xl sm:text-2xl font-medium text-yellow-400 mb-3 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075-.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 5.25-5.25v-2.918m-9.718 5.25H9.75a2.25 2.25 0 0 1 2.25 2.25H4.575M15.75 15.75A2.25 2.25 0 0 1 13.5 18h-3a2.25 2.25 0 0 1-2.25-2.25V15.75m6 0V18" />
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                             </svg>
-                            Otros Riesgos y Consecuencias
+                            Pérdida del Derecho al Crédito IPE
                         </h3>
-                        <ul class="list-disc list-inside text-slate-300 ml-4 space-y-2">
-                            <li>
-                                <strong class="text-yellow-400">Pérdida del Derecho al Crédito IPE:</strong> Si no presentas la DJ 1929, <strong class="font-bold">no podrás utilizar el crédito por impuestos pagados en el extranjero</strong> en tu Formulario 22. Esto podría significar pagar más impuestos en Chile de lo que correspondería.
-                            </li>
-                            <li>
-                                <strong class="text-yellow-400">Procesos de Fiscalización del SII:</strong> El SII cuenta con mecanismos de <strong class="font-bold">cruce de información</strong> cada vez más sofisticados, incluyendo acuerdos internacionales como el Estándar Común de Reporte (CRS) y FATCA (con EE.UU.). Si detectan inconsistencias entre lo que informas (o no informas) y la información que reciben de otras jurisdicciones, podrías ser objeto de una <strong class="font-bold">revisión o auditoría</strong>.
-                            </li>
-                            <li>
-                                <strong class="text-yellow-400">Dificultad para Justificar Origen de Fondos:</strong> No declarar correctamente tus inversiones y rentas en el extranjero puede complicar la justificación del origen de esos fondos o de incrementos patrimoniales en el futuro.
-                            </li>
-                             <li>
-                                <strong class="text-yellow-400">Impacto en tu Historial Tributario:</strong> Los incumplimientos pueden afectar tu historial como contribuyente ante el SII.
-                            </li>
-                        </ul>
+                        <p class="text-slate-300 leading-relaxed">
+                            Si no presentas la DJ 1929 o lo haces de forma incorrecta, el SII podría <strong class="text-yellow-400">rechazar o impugnar tu derecho a utilizar el Crédito por Impuestos Pagados en el Extranjero (IPE)</strong> en tu Formulario 22. Esto significaría que tendrías que pagar el impuesto completo en Chile por tus rentas extranjeras, sin poder descontar lo ya pagado afuera, lo que podría resultar en una carga tributaria significativamente mayor.
+                        </p>
+                    </div>
+                     <div class="p-5 border border-slate-600 rounded-lg bg-slate-800 hover:bg-slate-700/50 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                            Fiscalización y Auditorías
+                        </h3>
+                        <p class="text-slate-300 leading-relaxed">
+                            El incumplimiento puede gatillar <strong class="text-sky-400">procesos de fiscalización por parte del SII</strong>. Esto implica revisiones más exhaustivas de tu situación tributaria, solicitudes de más información, y potencialmente auditorías que pueden ser largas y complejas.
+                        </p>
                     </div>
                 </div>
-                <div class="mt-8 info-box">
-                    <h4 class="info-box-title mb-2 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                <div class="mt-8 tip-box">
+                    <h4 class="tip-box-title mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-1 align-text-bottom">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                         </svg>
-                        La Mejor Estrategia: Cumplir a Tiempo
+                        ¿Qué hacer si cometiste un error o no presentaste a tiempo?
                     </h4>
-                    <p class="info-box-content leading-relaxed">
-                        La forma más sencilla de evitar todas estas complicaciones es <strong class="font-bold">preparar tu información con anticipación y presentar tu DJ 1929 de forma correcta y dentro de los plazos establecidos</strong>. Este tutorial está diseñado para ayudarte precisamente con eso.
-                    </p>
-                    <p class="info-box-content leading-relaxed mt-2">
-                        Si tienes dudas complejas o tu situación es particular, no dudes en <strong class="font-bold">buscar asesoría profesional</strong>.
+                    <p class="tip-box-content leading-relaxed">
+                        <strong class="block">¡Actúa rápido!</strong>
+                        <ul class="list-disc list-inside mt-1 space-y-1">
+                            <li><strong>Presentar fuera de plazo (voluntariamente):</strong> Si te das cuenta tarde, presenta la DJ 1929 lo antes posible. Esto puede ayudar a reducir las multas (condonación parcial) en comparación a si el SII te detecta primero.</li>
+                            <li><strong>Rectificar:</strong> Si enviaste la DJ con errores u omisiones, puedes presentar una Declaración Jurada Rectificatoria. El SII permite esto, y es mejor corregir proactivamente.</li>
+                            <li><strong>Asesoría Profesional:</strong> Si la situación es compleja o las multas son significativas, considera buscar asesoría de un contador o abogado tributarista.</li>
+                        </ul>
                     </p>
                 </div>
             </section>
-
+            
             <section id="modulo5" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
-                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 5: Preguntas Frecuentes (FAQ) y Recursos Adicionales</h2>
-                <p class="mb-6 text-slate-300">Aquí encontrarás respuestas a algunas dudas comunes sobre la DJ 1929, así como enlaces a información oficial y otros recursos que pueden ser de utilidad.</p>
-                <div class="mb-10">
-                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-4">Preguntas Frecuentes (FAQ)</h3>
-                    <div class="space-y-4">
-                        <div class="faq-item">
-                            <button onclick="toggleDetails('faq1_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq1_ans">
-                                ¿Qué pasa si no obtuve rentas de mis inversiones en el extranjero durante el año, igual debo presentar la DJ 1929?
-                                <span class="arrow-down transform transition-transform duration-200">▼</span>
-                            </button>
-                            <div id="faq1_ans" class="hidden leading-relaxed text-sm">
-                                <p>Sí. La DJ 1929 no solo informa rentas, sino también las <strong class="font-semibold text-sky-300">inversiones y operaciones realizadas en el exterior</strong>. Aunque no hayas tenido ganancias (o incluso si tuviste pérdidas), debes informar el monto de la inversión y los detalles de la operación si cumples con los criterios de obligatoriedad (ej. tienes derecho a crédito IPE por impuestos pagados en el extranjero en algún momento, o el SII lo exige por el tipo de inversión).</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button onclick="toggleDetails('faq2_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq2_ans">
-                                ¿Las criptomonedas se informan en la DJ 1929?
-                                <span class="arrow-down transform transition-transform duration-200">▼</span>
-                            </button>
-                            <div id="faq2_ans" class="hidden leading-relaxed text-sm">
-                                <p>No directamente en la DJ 1929 como "inversión extranjera". El SII ha indicado que las criptomonedas son consideradas <strong class="font-semibold text-sky-300">activos digitales o virtuales</strong>. Las rentas obtenidas por la venta de criptomonedas (ganancias de capital) se declaran en el Formulario 22, y pueden estar sujetas a impuestos dependiendo de tu situación particular. La DJ 1929 se enfoca en inversiones más tradicionales en el exterior (acciones, cuotas de fondos, etc.). Es importante estar atento a las actualizaciones del SII sobre este tema.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button onclick="toggleDetails('faq3_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq3_ans">
-                                Si la plata de mis inversiones extranjeras nunca entró a Chile, ¿igual debo declararla?
-                                <span class="arrow-down transform transition-transform duration-200">▼</span>
-                            </button>
-                            <div id="faq3_ans" class="hidden leading-relaxed text-sm">
-                                <p>Sí. El <strong class="font-semibold text-sky-300">Principio de Renta Mundial</strong> (explicado en el Módulo 1) establece que los contribuyentes con domicilio o residencia en Chile tributan por sus rentas de fuente mundial, independientemente de si esos fondos ingresaron físicamente al país o se mantuvieron en el extranjero. La DJ 1929 es el medio para informar esas inversiones y rentas.</p>
-                            </div>
-                        </div>
-                         <div class="faq-item">
-                            <button onclick="toggleDetails('faq4_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq4_ans">
-                                ¿Qué tipo de cambio debo usar para convertir los montos a pesos chilenos?
-                                <span class="arrow-down transform transition-transform duration-200">▼</span>
-                            </button>
-                            <div id="faq4_ans" class="hidden leading-relaxed text-sm">
-                                <p>Debes utilizar el <strong class="font-semibold text-sky-300">tipo de cambio observado publicado por el Banco Central de Chile al 31 de diciembre</strong> del año calendario que estás informando. Por ejemplo, para las operaciones del año 2024 (que se informan en el AT 2025), usarás el tipo de cambio del 31 de diciembre de 2024. El SII suele publicar esta información en su sitio web, o puedes consultarla en el Banco Central.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button onclick="toggleDetails('faq5_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq5_ans">
-                                ¿Los administradores de fondos (Fondos Mutuos, Fondos de Inversión) presentan la DJ 1929 por mí?
-                                <span class="arrow-down transform transition-transform duration-200">▼</span>
-                            </button>
-                            <div id="faq5_ans" class="hidden leading-relaxed text-sm">
-                                <p>Los administradores de fondos que invierten en el exterior están obligados a presentar la DJ 1929 informando las operaciones del fondo. Sin embargo, <strong class="font-semibold text-sky-300">tú como partícipe o inversionista también podrías tener la obligación de presentar tu propia DJ 1929</strong> si, por ejemplo, tienes otras inversiones directas en el extranjero o si necesitas usar el crédito IPE por impuestos retenidos a través del fondo.</p>
-                                <p class="mt-2">Generalmente, el administrador del fondo te entregará un <strong class="font-semibold text-sky-300">certificado o informe</strong> con la información que necesitas para tu propia declaración (incluyendo tu porción de rentas e impuestos pagados en el extranjero). Revisa siempre tu situación particular y los documentos que te entrega tu intermediario.</p>
-                            </div>
-                        </div>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 5: Preguntas Frecuentes (FAQ) y Recursos Útiles</h2>
+                <p class="mb-6 text-slate-300">Aquí recopilamos algunas de las dudas más comunes sobre la DJ 1929 y te proporcionamos enlaces a recursos oficiales que te serán de gran ayuda.</p>
+                
+                <div class="space-y-4" id="faq-container">
                     </div>
-                </div>
-                <div>
-                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-4">Recursos Adicionales</h3>
-                    <p class="text-slate-300 leading-relaxed mb-4">
-                        La información tributaria puede cambiar. Siempre es recomendable consultar las fuentes oficiales y, si es necesario, buscar asesoría profesional.
-                    </p>
-                    <ul class="space-y-3">
-                        <li>
-                            <a href="https://www.sii.cl/servicios_online/1043-.html" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" /></svg>
-                                Página de Declaraciones Juradas del SII
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.sii.cl/normativa_legislacion/circulares/2022/circu48.pdf" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
-                                Circular SII N° 48 de 2022 (Instruye sobre DJ 1929 y otras)
-                            </a>
-                        </li>
-                         <li>
-                            <a href="https://www.sii.cl/documentos/circulares/2016/circu31.pdf" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
-                                Circular SII N° 31 de 2016 (Modificaciones al Art. 41 A LIR - Crédito IPE)
-                            </a>
-                        </li>
-                        <li>
-                            <p class="text-slate-300 mt-3">
-                                <strong class="font-semibold text-slate-100">Instrucciones Específicas de la DJ 1929:</strong> Cada año, el SII publica las instrucciones detalladas para cada DJ. Busca "Instrucciones DJ 1929 Año Tributario [XXXX]" en el sitio del SII.
-                            </p>
-                        </li>
+
+                <div class="mt-10">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-sky-400 mb-4">Recursos Oficiales del SII</h3>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2">
+                        <li><a href="https://www.sii.cl/declaraciones_juradas/suplemento/2024/F1929_2024.pdf" target="_blank" class="text-sky-400 hover:underline hover:text-sky-300 transition-colors">Instrucciones DJ 1929 AT 2024 (PDF)</a> - (Ejemplo, buscar el del año correspondiente)</li>
+                        <li><a href="https://www.sii.cl/preguntas_frecuentes/renta/001_002_1012.htm" target="_blank" class="text-sky-400 hover:underline hover:text-sky-300 transition-colors">Preguntas Frecuentes sobre Renta Mundial (SII)</a></li>
+                        <li><a href="https://www.sii.cl/pagina/valores/codigos/cod_operaciones_exterior.htm" target="_blank" class="text-sky-400 hover:underline hover:text-sky-300 transition-colors">Códigos de Operaciones en el Exterior (SII)</a></li>
+                        <li><a href="https://www.sii.cl/pagina/valores/codigos/cod_paises.htm" target="_blank" class="text-sky-400 hover:underline hover:text-sky-300 transition-colors">Códigos de Países (SII)</a></li>
+                        <li><a href="https://www.sii.cl/pagina/valores/dolar/dolar2023.htm" target="_blank" class="text-sky-400 hover:underline hover:text-sky-300 transition-colors">Valor del Dólar Observado (SII)</a> - (Buscar el del año correspondiente)</li>
                     </ul>
-                </div>
-                <div class="mt-8 warning-box">
-                    <h4 class="warning-box-title mb-2 flex items-center">
-                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-2"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.355a7.5 7.5 0 0 1-7.5 0" /> <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /> </svg>
-                        Considera Asesoría Profesional
-                    </h4>
-                    <p class="warning-box-content leading-relaxed">
-                        Si tus inversiones son complejas, tienes dudas significativas, o simplemente prefieres la tranquilidad de que un experto revise tu caso, <strong class="font-bold">no dudes en contactar a un contador o asesor tributario</strong> con experiencia en tributación internacional. Una buena asesoría puede ahorrarte tiempo, dinero y posibles problemas con el SII.
-                    </p>
                 </div>
             </section>
 
             <section id="modulo6" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
-                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 6: Tips y Advertencias Finales</h2>
-                <p class="mb-6 text-slate-300">Para cerrar este tutorial, aquí tienes algunos consejos prácticos y recordatorios de errores comunes que te ayudarán a navegar el proceso de la DJ 1929 con mayor seguridad y evitar contratiempos.</p>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 6: Tips Finales y Advertencias Importantes</h2>
+                <p class="mb-6 text-slate-300">Has llegado lejos, ¡felicitaciones! Para cerrar, te dejamos algunos consejos prácticos y advertencias cruciales para que tu experiencia con la DJ 1929 sea lo más exitosa posible.</p>
 
                 <div class="space-y-6">
                     <div class="tip-box">
-                        <h3 class="tip-box-title mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                            Tip #1: ¡No dejes para última hora!
-                        </h3>
-                        <p class="tip-box-content leading-relaxed">
-                            Reunir todos los documentos, entender la información y llenar el formulario puede tomar tiempo, especialmente si es tu primera vez o tienes varias operaciones. <strong class="font-semibold">Comienza el proceso con suficiente anticipación</strong> al plazo de vencimiento (último día hábil de junio, o antes si buscas que el crédito IPE aparezca en tu propuesta de F22). Así tendrás margen para resolver dudas o corregir errores sin apuros.
+                        <h4 class="tip-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.664 0l3.181-3.183m-4.991-2.696V7.71a11.25 11.25 0 0 1-2.696 0V12m0 0V7.71m0 4.29 0 0" /></svg>
+                            Tip 1: Revisa las Instrucciones del Año
+                        </h4>
+                        <p class="tip-box-content">
+                            Cada año, el SII publica instrucciones específicas para cada Declaración Jurada, incluyendo la DJ 1929. <strong class="font-semibold">Siempre consulta las instrucciones del Año Tributario (AT) correspondiente</strong>. Pueden haber pequeños cambios en códigos, formatos o criterios. No te confíes solo en la información de años anteriores.
                         </p>
                     </div>
 
                     <div class="warning-box">
-                        <h3 class="warning-box-title mb-2 flex items-center">
+                        <h4 class="warning-box-title mb-2 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
-                            Advertencia: Errores comunes en el llenado
-                        </h3>
-                        <ul class="list-disc list-inside warning-box-content space-y-1">
-                            <li><strong class="font-semibold">Dejar campos de domicilio en blanco (Sección A):</strong> Recuerda que para el declarante, estos campos se omiten.</li>
-                            <li><strong class="font-semibold">Tipo de cambio incorrecto:</strong> Usar siempre el tipo de cambio observado al 31 de diciembre del año que se informa. No uses el tipo de cambio del día de la operación para la conversión final a CLP en la DJ.</li>
-                            <li><strong class="font-semibold">Confundir renta bruta con líquida:</strong> Asegúrate de informar lo que corresponde según las instrucciones del SII y los certificados de tu broker.</li>
-                            <li><strong class="font-semibold">No informar todas las operaciones:</strong> Debes incluir todas las inversiones y rentas del exterior que correspondan, incluso si no generaron ganancias o si tuviste pérdidas.</li>
-                             <li><strong class="font-semibold">Errores en códigos de país o tipo de operación:</strong> Verifica bien los códigos que proporciona el SII.</li>
-                        </ul>
-                    </div>
-
-                    <div class="tip-box">
-                        <h3 class="tip-box-title mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                            Tip #2: Guarda TODO (digital y físico si es posible)
-                        </h3>
-                        <p class="tip-box-content leading-relaxed">
-                            Conserva copias de:
+                            Advertencia 1: El Tipo de Cambio es Crucial
+                        </h4>
+                        <p class="warning-box-content">
+                            Todos los montos en moneda extranjera deben ser convertidos a pesos chilenos (CLP). Para la DJ 1929, generalmente se utiliza el <strong class="font-semibold">tipo de cambio observado publicado por el Banco Central de Chile al 31 de diciembre del año calendario que se informa</strong> (no del año tributario). Un error aquí puede llevar a diferencias significativas y observaciones del SII.
                         </p>
-                        <ul class="list-disc list-inside tip-box-content space-y-1 mt-1">
-                            <li>Todas las cartolas y certificados de tus intermediarios.</li>
-                            <li>Comprobantes de impuestos pagados en el extranjero.</li>
-                            <li>El archivo CSV si usaste el importador.</li>
-                            <li>Capturas de pantalla del proceso de declaración en el SII (especialmente si hay errores o mensajes importantes).</li>
-                            <li><strong class="font-semibold">El Certificado de Recepción de la DJ 1929.</strong> Este es tu principal respaldo.</li>
-                            <li>Tu Formulario 22 donde aplicaste el crédito IPE.</li>
-                        </ul>
-                        <p class="tip-box-content leading-relaxed mt-1">
-                            Guarda estos documentos por varios años (el SII puede fiscalizar períodos anteriores).
+                    </div>
+                    
+                    <div class="tip-box">
+                        <h4 class="tip-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>
+                             Tip 2: Guarda TODOS los Comprobantes
+                        </h4>
+                        <p class="tip-box-content">
+                            Conserva copias digitales y/o físicas de <strong class="font-semibold">todos los documentos</strong> que respaldan tu DJ 1929: cartolas, certificados de impuestos extranjeros, comprobantes de compra/venta de activos, etc. El SII puede solicitarlos hasta por 6 años.
                         </p>
                     </div>
 
                     <div class="danger-box">
-                        <h3 class="danger-box-title mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" /></svg>
-                            Advertencia Clave: El mito de "si no entró a Chile, no declaro"
-                        </h3>
-                        <p class="danger-box-content leading-relaxed">
-                            Es un error común pensar que si las ganancias o inversiones se mantienen en el extranjero y no "entran" a una cuenta bancaria chilena, no hay que declararlas. <strong class="font-semibold">Esto es incorrecto</strong> debido al Principio de Renta Mundial. Debes informar tus rentas e inversiones mundiales.
+                        <h4 class="danger-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5h1.5m-1.5 0h1.5m-1.5 0H3m9 0H9m3 0h1.5m-1.5 0H9m3 0H6m9 0h1.5m-1.5 0H9m3 0h1.5m-1.5 0H3m3.75 0v.007M3.75 0v.007m0 0H2.25m1.5 0H2.25M3.75 0v.007M3.75 0H2.25m9 7.5h1.5m-1.5 0h1.5m-1.5 0H9m3 0H9m3 0h1.5m-1.5 0H9m3 0H6m9 0h1.5m-1.5 0H9m3 0h1.5m-1.5 0H3m3.75 0v.007M3.75 0v.007m0 0H2.25m1.5 0H2.25M3.75 0v.007M3.75 0H2.25M12 12h1.5m-1.5 0h1.5m-1.5 0H9m3 0H9m3 0h1.5m-1.5 0H9m3 0H6m9 0h1.5m-1.5 0H9m3 0h1.5m-1.5 0H3m3.75 0v.007M3.75 0v.007m0 0H2.25m1.5 0H2.25M3.75 0v.007M3.75 0H2.25" /></svg>
+                            Advertencia 2: "No sabía" no es excusa
+                        </h4>
+                        <p class="danger-box-content">
+                            El desconocimiento de la obligación de declarar o de los detalles de la DJ 1929 <strong class="font-semibold">no exime de responsabilidad ni de posibles sanciones</strong>. Es tu deber como contribuyente informarte y cumplir.
                         </p>
                     </div>
-
+                    
                     <div class="tip-box">
-                        <h3 class="tip-box-title mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h12A2.25 2.25 0 0 0 20.25 14.25V3M3.75 14.25m-1.5 0h3m-3 0c0 .621.504 1.125 1.125 1.125h16.5c.621 0 1.125-.504 1.125-1.125m-18.75 0c0-1.101.899-1.875 2.25-1.875h14.25c1.352 0 2.25.774 2.25 1.875M3.75 14.25v2.25c0 .621.504 1.125 1.125 1.125h16.5c.621 0 1.125-.504 1.125-1.125v-2.25" /></svg>
-                            Tip #3: DJ 1929 y Formulario 22 van de la mano
-                        </h3>
-                        <p class="tip-box-content leading-relaxed">
-                            Recuerda siempre que la DJ 1929 es para <strong class="font-semibold">INFORMAR</strong> tus operaciones y rentas extranjeras, y es un requisito para usar el crédito IPE. El <strong class="font-semibold">PAGO</strong> (o la determinación de si hay impuesto a pagar) por esas rentas se realiza en tu Declaración Anual de Renta (Formulario 22). Son dos procesos distintos pero complementarios.
+                        <h4 class="tip-box-title mb-2 flex items-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" /></svg>
+                            Tip 3: No dejes para mañana...
+                        </h4>
+                        <p class="tip-box-content">
+                            ...lo que puedes declarar hoy (o al menos con anticipación). Presentar la DJ 1929 <strong class="font-semibold">antes de la Operación Renta (F22)</strong>, idealmente en marzo, puede facilitar que tu propuesta de F22 incluya correctamente el Crédito IPE y evitar trámites adicionales.
                         </p>
                     </div>
 
-                    <div class="warning-box">
-                        <h3 class="warning-box-title mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="m9.443 13.443-1.45-1.45a1.5 1.5 0 0 1 0-2.121l1.45-1.45a1.5 1.5 0 0 1 2.121 0l1.45 1.45a1.5 1.5 0 0 1 0 2.121l-1.45 1.45a1.5 1.5 0 0 1-2.121 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.343V12m0 6.343V12m6.343-5.657L12 12m5.657 6.343L12 12m-6.343 5.657L12 12m-5.657-6.343L12 12" /></svg>
-                            Advertencia: No te apresures a declarar tu Renta (F22) el 1 de abril
-                        </h3>
-                        <p class="warning-box-content leading-relaxed">
-                            Si bien es tentador ser de los primeros, es recomendable esperar unos días después del inicio de la Operación Renta. Esto da tiempo al SII para cargar toda la información de agentes retenedores y otras DJs (como la tuya, si la presentaste con anticipación). Una propuesta de F22 más completa puede evitarte rectificatorias.
+                     <div class="warning-box">
+                        <h4 class="warning-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                            Advertencia 3: Asesoría Profesional si es Necesario
+                        </h4>
+                        <p class="warning-box-content">
+                            Si tus inversiones en el extranjero son complejas, involucran estructuras sofisticadas, o simplemente no te sientes seguro, <strong class="font-semibold">no dudes en buscar ayuda de un contador o asesor tributario especializado</strong>. Una buena asesoría puede ahorrarte muchos dolores de cabeza y dinero en el futuro.
                         </p>
                     </div>
                 </div>
 
-                <div class="mt-10 info-box">
-                    <h3 class="info-box-title mb-2 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        ¡Has llegado al final del tutorial!
-                    </h3>
-                    <p class="info-box-content leading-relaxed">
-                        Esperamos que esta guía te haya sido de gran utilidad para desmitificar la DJ 1929. Recuerda que la clave está en la <strong class="font-semibold">organización, la anticipación y la consulta de fuentes oficiales</strong>.
-                    </p>
-                    <p class="info-box-content leading-relaxed mt-2">
-                        ¡Mucho éxito en tu declaración!
-                    </p>
-                </div>
+                <p class="mt-10 text-center text-slate-300 text-lg">
+                    ¡Has completado la guía! Esperamos que esta información te sea de gran utilidad. Recuerda que la clave está en la <strong class="text-sky-400">organización, la anticipación y la información correcta</strong>.
+                </p>
             </section>
 
         </main>
-
-        <footer class="mt-12 pt-8 border-t border-slate-700 text-center text-sm text-slate-400">
-            <p>&copy; <span id="currentYear"></span> Milko Yunusic (Contenido adaptado para tutorial) - Declaración Jurada 1929.</p>
-            <p class="mt-1">Este tutorial tiene fines educativos. Verifica siempre la información en las fuentes oficiales del SII y considera buscar asesoría profesional para tu caso particular.</p>
-        </footer>
-
     </div>
 
     <script>
-        function toggleDetails(id, buttonOrArrow) {
-            const element = document.getElementById(id);
-            let arrowSpan;
-
-            if (buttonOrArrow && buttonOrArrow.tagName === 'SPAN') {
-                arrowSpan = buttonOrArrow;
-            } else if (buttonOrArrow && buttonOrArrow.querySelector) {
-                 arrowSpan = buttonOrArrow.querySelector('span.arrow-down, span.arrow-up');
-            }
-
-            const isHidden = element.classList.toggle('hidden');
-            const buttonElement = element.previousElementSibling; // Assuming button is always previous sibling
-
-            if (isHidden) {
-                if(arrowSpan) arrowSpan.innerHTML = '▼'; // Or your preferred down arrow
-                if(buttonElement && buttonElement.tagName === 'BUTTON') buttonElement.setAttribute('aria-expanded', 'false');
-            } else {
-                if(arrowSpan) arrowSpan.innerHTML = '▲'; // Or your preferred up arrow
-                if(buttonElement && buttonElement.tagName === 'BUTTON') buttonElement.setAttribute('aria-expanded', 'true');
-            }
-        }
-
-        function showModule(moduleId, clickedButton) {
-            document.querySelectorAll('.module-content').forEach(module => {
+        // Function to show a specific module and hide others
+        function showModule(moduleId, buttonElement) {
+            // Hide all module content
+            const modules = document.querySelectorAll('.module-content');
+            modules.forEach(module => {
                 module.classList.add('hidden');
             });
-            const activeModule = document.getElementById(moduleId);
-            if (activeModule) {
-                activeModule.classList.remove('hidden');
-            }
 
-            document.querySelectorAll('.module-button').forEach(button => {
+            // Deactivate all module buttons
+            const buttons = document.querySelectorAll('.module-button');
+            buttons.forEach(button => {
                 button.classList.remove('active');
-                // Tailwind classes for active/inactive are managed in the <style> block now
-                // or could be directly managed here if preferred.
-                // For simplicity, the .active class toggles styles defined in CSS.
             });
-            clickedButton.classList.add('active');
-            
-            if (activeModule) {
-                activeModule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Show the selected module
+            const selectedModule = document.getElementById(moduleId);
+            if (selectedModule) {
+                selectedModule.classList.remove('hidden');
+            }
+
+            // Activate the clicked button
+            if (buttonElement) {
+                buttonElement.classList.add('active');
             }
         }
-        
-        function calcularGanancia() {
-            const compraUSD = parseFloat(document.getElementById('compraUSD').value) || 0;
-            const ventaUSD = parseFloat(document.getElementById('ventaUSD').value) || 0;
-            const tc = parseFloat(document.getElementById('tcGD').value) || 0;
-            const resultadoElement = document.getElementById('resultadoGanancia');
 
-            if (!resultadoElement) return; // Exit if element doesn't exist
-
-            if (tc === 0) {
-                resultadoElement.textContent = "Por favor, ingresa un tipo de cambio válido.";
-                return;
-            }
-
-            const gananciaUSD = ventaUSD - compraUSD;
-            const gananciaCLP = gananciaUSD * tc;
-
-            if (ventaUSD_init > 0 || compraUSD_init > 0 || tc > 0) { // Check if there are any values to display
-                 resultadoElement.textContent = `${gananciaCLP.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })} (Ganancia en USD: ${gananciaUSD.toLocaleString('en-US', { style: 'currency', currency: 'USD' })})`;
-            } else {
-                 resultadoElement.textContent = "---";
+        // Function to toggle visibility of details sections
+        function toggleDetails(detailsId, buttonElement) {
+            const detailsDiv = document.getElementById(detailsId);
+            const arrowSpan = buttonElement.querySelector('.arrow-down');
+            if (detailsDiv) {
+                detailsDiv.classList.toggle('hidden');
+                if (detailsDiv.classList.contains('hidden')) {
+                    arrowSpan.textContent = '▼'; // Down arrow
+                } else {
+                    arrowSpan.textContent = '▲'; // Up arrow
+                }
             }
         }
+
+        // FAQ Data and Generation
+        const faqData = [
+            {
+                question: "¿Quiénes están obligados a presentar la DJ 1929?",
+                answer: "Principalmente, los contribuyentes de Primera Categoría, Impuesto Global Complementario o Impuesto Adicional que hayan realizado inversiones, operaciones o tengan rentas del exterior, y aquellos que tengan derecho al crédito IPE. Siempre revisa las instrucciones del SII para el año tributario correspondiente, ya que los criterios pueden actualizarse."
+            },
+            {
+                question: "¿Qué pasa si no tuve rentas, pero sí inversiones en el extranjero?",
+                answer: "Sí, generalmente debes informar las inversiones aunque no hayan generado rentas durante el período. La DJ 1929 también sirve para registrar el costo de tus activos en el exterior."
+            },
+            {
+                question: "¿Qué tipo de cambio debo usar para convertir a pesos chilenos?",
+                answer: "Debes usar el tipo de cambio observado informado por el Banco Central de Chile al 31 de diciembre del año calendario que se informa (ej. para AT 2025, usas el dólar al 31/12/2024). El SII publica tablas con estos valores."
+            },
+            {
+                question: "Mi broker extranjero me entrega un informe anual, ¿es suficiente?",
+                answer: "El informe de tu broker es un insumo muy importante, pero debes asegurarte de que contenga toda la información requerida por la DJ 1929 y en el formato que el SII espera (especialmente los impuestos retenidos y las conversiones a CLP). A veces, necesitarás procesar esa información."
+            },
+            {
+                question: "¿Puedo rectificar la DJ 1929 si cometí un error?",
+                answer: "Sí, el SII permite presentar declaraciones rectificatorias. Es importante hacerlo lo antes posible si detectas un error para evitar mayores inconvenientes."
+            },
+            {
+                question: "¿Qué hago si no tengo un comprobante formal del impuesto pagado en el extranjero?",
+                answer: "Las instrucciones del SII suelen indicar que se puede usar 'cualquier medio de prueba fehaciente'. Esto podría incluir cartolas bancarias detalladas. Sin embargo, siempre es preferible tener certificados oficiales. Si el monto es significativo, consulta con un asesor."
+            }
+        ];
+
+        function generateFAQItems() {
+            const faqContainer = document.getElementById('faq-container');
+            if (!faqContainer) return;
+
+            faqData.forEach((item, index) => {
+                const faqItemDiv = document.createElement('div');
+                faqItemDiv.classList.add('faq-item', 'bg-slate-800', 'rounded-lg');
+
+                const button = document.createElement('button');
+                button.setAttribute('onclick', `toggleDetails('faq-answer-${index}', this)`);
+                button.innerHTML = `
+                    <span>${item.question}</span>
+                    <span class="arrow-down text-sky-400">▼</span>
+                `;
+                
+                const answerDiv = document.createElement('div');
+                answerDiv.id = `faq-answer-${index}`;
+                answerDiv.classList.add('hidden');
+                answerDiv.innerHTML = `<p>${item.answer}</p>`;
+
+                faqItemDiv.appendChild(button);
+                faqItemDiv.appendChild(answerDiv);
+                faqContainer.appendChild(faqItemDiv);
+            });
+        }
         
-        // Initialize current year and other dynamic elements
+        // Initialize the first module to be visible and generate FAQs
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            const firstModuleButton = document.querySelector('.module-button');
-            if (firstModuleButton) {
-                 showModule('modulo1', firstModuleButton);
-            }
-
-            // Initialize arrows for details sections (non-FAQ)
-            document.querySelectorAll('button[onclick^="toggleDetails"]').forEach(button => {
-                if (!button.closest('.faq-item')) { // Exclude FAQ items as they are handled differently
-                    const targetId = button.getAttribute('onclick').match(/'([^']+)'/)[1];
-                    const targetElement = document.getElementById(targetId);
-                    const arrow = button.querySelector('span.arrow-down, span.arrow-up');
-                    if (targetElement && arrow) {
-                        if (targetElement.classList.contains('hidden')) {
-                            arrow.textContent = '▼';
-                            button.setAttribute('aria-expanded', 'false');
-                        } else {
-                            arrow.textContent = '▲';
-                            button.setAttribute('aria-expanded', 'true');
-                        }
-                    }
-                }
-            });
-            
-            // Initialize arrows for FAQ items specifically
-             document.querySelectorAll('.faq-item button').forEach(button => {
-                const targetId = button.getAttribute('aria-controls');
-                const targetElement = document.getElementById(targetId);
-                const arrow = button.querySelector('span.arrow-down'); // FAQ items use .arrow-down
-                 if (targetElement && arrow) {
-                    if (targetElement.classList.contains('hidden')) {
-                        arrow.innerHTML = '▼';
-                        button.setAttribute('aria-expanded', 'false');
-                    } else {
-                        arrow.innerHTML = '▲';
-                        button.setAttribute('aria-expanded', 'true');
-                    }
-                }
-            });
-
-            // Call calcularGanancia if its elements exist, for initial display
-            if (document.getElementById('compraUSD') && document.getElementById('ventaUSD') && document.getElementById('tcGD') && document.getElementById('resultadoGanancia')) {
-                 // Set initial values for example if needed, then call
-                 // For now, it will calculate based on readonly values or 0 if empty.
-                const compraUSD_init = parseFloat(document.getElementById('compraUSD').value) || 0;
-                const ventaUSD_init = parseFloat(document.getElementById('ventaUSD').value) || 0;
-                // tcGD has a value in HTML, so it will be used.
-                // To make the function display something, ensure the condition in calcularGanancia allows it.
-                // For now, it will show "---" if compraUSD and ventaUSD are 0.
-                calcularGanancia(); 
-            }
+            showModule('modulo1', document.querySelector('.module-button'));
+            generateFAQItems();
         });
-
     </script>
-
 </body>
 </html>
+  
+ 
+                  
+                       
+                
+   
