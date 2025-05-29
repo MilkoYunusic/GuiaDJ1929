@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía DJ 1929 - Fintech Dark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #334155; /* slate-700 */
+            color: #e2e8f0; /* slate-200 */
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* slate-700 */
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .module-button.active {
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+        }
+        .module-button:not(.active) {
+            background-color: #334155; /* slate-700 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .module-button:not(.active):hover {
+            background-color: #475569; /* slate-600 */
+        }
+
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            background-color: #4b5563; /* gray-600 / slate-600 adjusted */
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            margin-right: 8px;
+            vertical-align: middle;
+            transition: background-color 0.2s;
+            border: 1px solid #6b7280; /* gray-500 / slate-500 */
+        }
+        .custom-checkbox:checked {
+            background-color: #0ea5e9; /* sky-500 */
+            border-color: #0ea5e9;
+        }
+        .custom-checkbox:checked::after {
+            content: '✔';
+            font-size: 14px;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .checklist-item label {
+            cursor: pointer;
+        }
+        .sii-input {
+            border: 1px solid #475569; /* slate-600 */
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 4px;
+            background-color: #1e293b; /* slate-800 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .sii-input:read-only {
+            background-color: #334155; /* slate-700 */
+            cursor: not-allowed;
+        }
+        .sii-button {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .sii-button:hover:not(:disabled) {
+            background-color: #0284c7; /* sky-600 */
+        }
+        .sii-button:disabled {
+            background-color: #475569; /* slate-600 */
+            color: #94a3b8; /* slate-400 */
+            cursor: not-allowed;
+        }
+        .sii-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .sii-table th, .sii-table td {
+            border: 1px solid #475569; /* slate-600 */
+            padding: 8px;
+            text-align: left;
+        }
+        .sii-table th {
+            background-color: #334155; /* slate-700 */
+        }
+        
+        /* Box Styles for Dark Theme */
+        .info-box, .warning-box, .danger-box, .tip-box {
+            background-color: #1e293b; /* slate-800 */
+            border-left-width: 4px;
+            padding: 1.25rem; /* p-5 */
+            border-radius: 0.375rem; /* rounded-md */
+            margin-bottom: 1.5rem; /* Added for spacing between boxes if needed */
+        }
+
+        .info-box { border-color: #38bdf8; /* sky-400 */ }
+        .info-box-title { color: #7dd3fc; /* sky-300 */ font-weight: 600; }
+        .info-box-content { color: #e0f2fe; /* sky-100 */ }
+
+        .warning-box { border-color: #facc15; /* yellow-400 */ }
+        .warning-box-title { color: #fde047; /* yellow-300 */ font-weight: 600; }
+        .warning-box-content { color: #fef9c3; /* yellow-100 */ }
+        
+        .danger-box { border-color: #f87171; /* red-400 */ }
+        .danger-box-title { color: #fca5a5; /* red-300 */ font-weight: 600; }
+        .danger-box-content { color: #fee2e2; /* red-100 */ }
+
+        .tip-box { border-color: #34d399; /* green-400 */ }
+        .tip-box-title { color: #6ee7b7; /* green-300 */ font-weight: 600; }
+        .tip-box-content { color: #d1fae5; /* green-100 */ }
+
+        .faq-item button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem;
+            font-weight: 500;
+            text-align: left;
+            background-color: #334155; /* slate-700 */
+            border: 1px solid #475569; /* slate-600 */
+            border-radius: 0.5rem; /* rounded-lg */
+            color: #e2e8f0; /* slate-200 */
+        }
+        .faq-item button:hover {
+            background-color: #475569; /* slate-600 */
+        }
+        .faq-item div { /* Content of FAQ item */
+            padding: 1rem;
+            border: 1px solid #475569; /* slate-600 */
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: #1e293b; /* slate-800 */
+            color: #cbd5e1; /* slate-300 */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-900 text-slate-200">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-sky-400">Guía: Declaración Jurada N° 1929</h1>
+            <p class="text-md sm:text-lg text-slate-300 mt-2">Tu guía amigable para entender y declarar tus inversiones y rentas del extranjero.</p>
+        </header>
+
+        <nav class="mb-8 flex flex-wrap justify-center gap-2 sm:gap-4">
+            <button onclick="showModule('modulo1', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors active">Módulo 1: Conceptos</button>
+            <button onclick="showModule('modulo2', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors">Módulo 2: Preparación</button>
+            <button onclick="showModule('modulo3', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors">Módulo 3: Llenado SII</button>
+            <button onclick="showModule('modulo4', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors">Módulo 4: Incumplimiento</button>
+            <button onclick="showModule('modulo5', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors">Módulo 5: FAQ y Recursos</button>
+            <button onclick="showModule('modulo6', this)" class="module-button px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-75 transition-colors">Módulo 6: Tips y Advertencias</button>
+        </nav>
+
+        <main id="content-area">
+
+            <section id="modulo1" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 1: Conceptos Clave</h2>
+                <p class="mb-6 text-slate-300">Antes de sumergirnos en el "cómo", es fundamental entender el "por qué" y algunos términos que escucharás a menudo. ¡Vamos a ello!</p>
+                
+                <div class="mb-6 p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-2">1. Principio de Renta Mundial</h3>
+                    <p class="text-slate-300 leading-relaxed mb-3">
+                        Si tienes <strong class="text-sky-400">domicilio o residencia en Chile</strong>, este principio es la base de todo. Significa que debes pagar impuestos en Chile por <strong class="text-sky-400">todas tus rentas</strong>, sin importar si las generaste en Chile o en cualquier otro rincón del planeta.
+                        <span class="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 inline text-sky-500 cursor-pointer">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                            <span class="tooltiptext">Base Legal: Artículo 3 de la Ley sobre Impuesto a la Renta (LIR).</span>
+                        </span>
+                    </p>
+                    <button onclick="toggleDetails('details1', this)" class="mt-2 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                        Ver más detalles <span class="arrow-down">▼</span>
+                    </button>
+                    <div id="details1" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                        <p><strong>En simple:</strong> ¿Tienes acciones en Nueva York? ¿Recibes arriendos de un departamento en Madrid? ¿Obtuviste ganancias por una venta en Australia? Todo eso se considera para tus impuestos en Chile.</p>
+                        <p class="mt-1"><strong>Importante:</strong> Esto no significa que pagues el total de nuevo si ya pagaste impuestos afuera (para eso veremos el Crédito IPE), pero sí que debes informarlo y calcular si corresponde pagar diferencias en Chile.</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-2">2. Doble Tributación Internacional</h3>
+                    <p class="text-slate-300 leading-relaxed mb-3">
+                        Este es un desafío común en el mundo globalizado. Ocurre cuando <strong class="text-sky-400">un mismo ingreso es gravado por dos países diferentes</strong>: el país donde se generó la renta (país de la fuente) y tu país de residencia (Chile, en este caso, por el Principio de Renta Mundial).
+                    </p>
+                    <button onclick="toggleDetails('details2', this)" class="mt-2 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                        Ver más detalles <span class="arrow-down">▼</span>
+                    </button>
+                    <div id="details2" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                        <p><strong>El Problema:</strong> Pagar impuestos dos veces por la misma ganancia puede reducir significativamente la rentabilidad de tus inversiones y desincentivar las operaciones internacionales.</p>
+                        <p class="mt-1"><strong>La Solución (generalmente):</strong> Para evitar o mitigar esto, Chile ha firmado <strong class="text-sky-400">Convenios de Doble Tributación (CDT)</strong> con varios países y, además, existe el <strong class="text-sky-400">Crédito por Impuestos Pagados en el Extranjero (IPE)</strong>, del que hablaremos a continuación.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-6 p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-2">3. Crédito por Impuestos Pagados en el Extranjero (IPE)</h3>
+                    <p class="text-slate-300 leading-relaxed mb-3">
+                        ¡Este es tu gran aliado contra la doble tributación! El IPE te permite <strong class="text-sky-400">descontar (acreditar) los impuestos que ya pagaste en el extranjero</strong> contra el impuesto que te correspondería pagar en Chile por esas mismas rentas.
+                        <span class="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 inline text-sky-500 cursor-pointer">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                            <span class="tooltiptext">Base Legal: Artículo 41 A de la LIR.</span>
+                        </span>
+                    </p>
+                    <button onclick="toggleDetails('details3', this)" class="mt-2 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                        Ver más detalles <span class="arrow-down">▼</span>
+                    </button>
+                    <div id="details3" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                        <p><strong>Requisito Clave:</strong> Para poder usar este crédito en tu Declaración Anual de Impuesto a la Renta (Formulario 22), es <strong class="text-red-400">fundamental presentar la Declaración Jurada N° 1929</strong>.</p>
+                        <p class="mt-1"><strong>¡Ojo con los Topes!:</strong> El crédito tiene límites. Generalmente, no puede exceder el 35% de la renta extranjera (convertida a pesos chilenos), ni tampoco el monto del impuesto efectivamente pagado en el extranjero. Se aplica el menor de estos valores. Además, si el crédito es mayor al impuesto chileno, el excedente no se devuelve ni se puede usar contra otros impuestos.</p>
+                        <p class="mt-1"><strong>Ejemplo Sencillo:</strong> Si ganaste $1000 afuera y pagaste $150 de impuesto allá, y en Chile te tocaría pagar $300 por esa misma ganancia (antes del crédito), podrías usar esos $150 como crédito, pagando solo $150 en Chile (asumiendo que cumples los topes).</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-2">4. Registro de Inversiones en el Extranjero (RIE)</h3>
+                    <p class="text-slate-300 leading-relaxed mb-3">
+                        El RIE es un registro que lleva el SII donde se informa sobre las inversiones realizadas en el exterior. Su objetivo principal es <strong class="text-sky-400">acreditar la inversión inicial y su costo</strong>.
+                    </p>
+                    <button onclick="toggleDetails('details4', this)" class="mt-2 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                        Ver más detalles <span class="arrow-down">▼</span>
+                    </button>
+                    <div id="details4" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                        <p><strong>¿RIE o DJ 1929?:</strong> En muchos casos, la presentación de la DJ 1929 <strong class="text-sky-400">puede reemplazar la necesidad de inscribir la inversión en el RIE</strong>, según las disposiciones del SII. La DJ 1929 es más completa ya que no solo informa la inversión, sino también las rentas y los impuestos asociados.</p>
+                        <p class="mt-1"><strong>Utilidad del RIE:</strong> Aunque la DJ 1929 sea suficiente, conocer el RIE es útil porque ayuda a entender cómo el SII rastrea el origen y costo de tus activos en el extranjero, lo cual es crucial para calcular correctamente futuras ganancias de capital.</p>
+                    </div>
+                </div>
+
+                <div class="p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-2">5. Declaración Jurada N° 1929 (DJ 1929)</h3>
+                    <p class="text-slate-300 leading-relaxed mb-3">
+                        ¡La protagonista de este tutorial! La DJ 1929 es el <strong class="text-sky-400">instrumento principal para informar al SII</strong> sobre tus inversiones, operaciones, y las rentas (ganancias o pérdidas) que has obtenido fuera de Chile.
+                    </p>
+                    <button onclick="toggleDetails('details5', this)" class="mt-2 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                        Ver más detalles <span class="arrow-down">▼</span>
+                    </button>
+                    <div id="details5" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                        <p><strong>Informar vs. Pagar:</strong> Es crucial distinguir:
+                            <ul class="list-disc list-inside ml-4 mt-1">
+                                <li><strong class="text-sky-400">DJ 1929:</strong> Aquí <strong class="text-red-400">informas</strong> detalladamente tus operaciones y rentas extranjeras. No pagas impuestos directamente con esta declaración.</li>
+                                <li><strong class="text-sky-400">Formulario 22 (F22):</strong> En tu Declaración Anual de Renta, <strong class="text-red-400">declaras y pagas</strong> los impuestos correspondientes, incluyendo aquellos por rentas extranjeras, y es aquí donde aplicas el Crédito IPE que justificaste con la DJ 1929.</li>
+                            </ul>
+                        </p>
+                        <p class="mt-1"><strong>¿Para qué sirve entonces?:</strong> La DJ 1929 proporciona al SII la información necesaria para verificar la correcta declaración de tus rentas mundiales y el uso del crédito IPE en tu Formulario 22.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modulo2" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 2: Preparación de Documentos</h2>
+                <p class="mb-6 text-slate-300">¡Bien hecho al completar el primer módulo! Ahora que entiendes los conceptos básicos, es hora de reunir la "artillería". Una buena preparación de tus documentos es clave para que el proceso de declaración sea lo más fluido posible.</p>
+                <div class="space-y-6">
+                    <div class="p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50 checklist-item">
+                        <div class="flex items-start">
+                             <input type="checkbox" id="doc1" class="custom-checkbox mt-1" checked>
+                             <label for="doc1" class="ml-2 flex-1">
+                                <h3 class="text-xl font-medium text-slate-100">RUT y Clave Única (o Clave Tributaria)</h3>
+                                <p class="text-slate-300 leading-relaxed mt-1">
+                                    Indispensables para acceder a tu portal <a href="https://www.sii.cl" target="_blank" class="text-sky-400 hover:underline">Mi SII</a>. Asegúrate de tener tu Clave Única al día o tu Clave Tributaria si la usas para el SII.
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50 checklist-item">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="doc2" class="custom-checkbox mt-1" checked>
+                            <label for="doc2" class="ml-2 flex-1">
+                                <h3 class="text-xl font-medium text-slate-100">Cartolas y Certificados de Intermediarios Financieros</h3>
+                                <p class="text-slate-300 leading-relaxed mt-1">
+                                    Estos son los resúmenes anuales o certificados que te entregan los bancos, corredoras de bolsa, plataformas de inversión (nacionales o extranjeras) donde tienes tus inversiones. Deben detallar: tipo de inversión, montos invertidos, rentas obtenidas (dividendos, intereses, ganancias de capital), y fechas de las operaciones.
+                                </p>
+                            </label>
+                        </div>
+                        <button onclick="toggleDetails('detailsDoc2', this)" class="mt-3 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                            Ejemplos de intermediarios <span class="arrow-down">▼</span>
+                        </button>
+                        <div id="detailsDoc2" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Bancos chilenos con custodia internacional.</li>
+                                <li>Corredoras de bolsa chilenas que ofrecen inversión en mercados extranjeros.</li>
+                                <li>Plataformas de inversión online internacionales (ej. Interactive Brokers, eToro, Pershing, Charles Schwab, etc.).</li>
+                                <li>Administradoras de Fondos (Fondos Mutuos, Fondos de Inversión) que invierten en el exterior y te entregan certificados específicos para la DJ 1929.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-slate-700 rounded-lg hover:shadow-lg transition-shadow bg-slate-800 hover:bg-slate-700/50 checklist-item">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="doc3" class="custom-checkbox mt-1" checked>
+                            <label for="doc3" class="ml-2 flex-1">
+                                <h3 class="text-xl font-medium text-slate-100">Comprobantes de Impuestos Pagados/Retenidos en el Extranjero</h3>
+                                <p class="text-slate-300 leading-relaxed mt-1">
+                                    Estos documentos acreditan los impuestos que ya te cobraron en el país de origen de la renta. Son <strong class="text-red-400">cruciales</strong> para poder usar el Crédito por Impuestos Pagados en el Extranjero (IPE).
+                                </p>
+                            </label>
+                        </div>
+                        <button onclick="toggleDetails('detailsDoc3', this)" class="mt-3 text-sm text-sky-400 hover:text-sky-300 font-semibold py-1 px-3 rounded-md bg-sky-700/30 hover:bg-sky-600/40 transition-colors">
+                            ¿Qué tipo de comprobantes sirven? <span class="arrow-down">▼</span>
+                        </button>
+                        <div id="detailsDoc3" class="hidden mt-3 text-sm text-slate-400 bg-slate-700/50 p-4 rounded-md border-l-4 border-sky-600">
+                             <ul class="list-disc list-inside space-y-1">
+                                <li>Certificados oficiales de retención de impuestos emitidos por la entidad pagadora extranjera (ej. Formulario 1042-S de EE.UU.).</li>
+                                <li>Declaraciones de impuestos presentadas en el país extranjero donde se pagó el impuesto.</li>
+                                <li>Comprobantes de pago directo del impuesto en el extranjero.</li>
+                                <li>Si no tienes documentos formales, el SII indica que puedes usar "cualquier medio de prueba fehaciente". Esto podría incluir cartolas bancarias donde se vea claramente el descuento del impuesto, pero siempre es mejor tener los documentos oficiales. Consulta las instrucciones específicas de la DJ 1929 para el año tributario correspondiente.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 warning-box">
+                    <h4 class="text-lg warning-box-title mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-2 align-text-bottom">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.355a7.5 7.5 0 0 1-7.5 0" /> <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /> </svg>
+                        Consejo de Oro
+                    </h4>
+                    <p class="warning-box-content leading-relaxed">
+                        ¡Digitaliza y organiza! Crea una carpeta en tu computador para el Año Tributario correspondiente (ej. "AT 2025 - DJ 1929") y guarda ahí todos los PDFs y archivos relevantes escaneados o descargados. Etiqueta bien los archivos (ej. "Cartola_BrokerX_2024.pdf", "Certificado_Impuesto_EEUU_2024.pdf"). ¡Tu "yo del futuro" te lo agradecerá enormemente durante la declaración!
+                    </p>
+                </div>
+                <p class="mt-8 text-slate-300">
+                    Una vez que tengas estos documentos a mano y bien organizados, estarás mucho mejor preparado para el siguiente paso: enfrentarte al formulario en el sitio del SII. ¡Pero no te preocupes, te guiaremos en el próximo módulo!
+                </p>
+            </section>
+
+            <section id="modulo3" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 3: Llenado y Envío en el SII (Paso a Paso)</h2>
+                <p class="mb-6 text-slate-300">¡Llegó el momento de la verdad! En este módulo, te guiaremos paso a paso por el proceso de llenado y envío de la DJ 1929 directamente en el sitio web del SII. Simularémos la interfaz para que te familiarices con ella.</p>
+                <div class="mb-8 p-5 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl font-medium text-slate-100 mb-4">Parte 1: Acceso y Navegación Inicial en el SII</h3>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">Paso 1: Ingresar al SII</p>
+                        <p class="text-slate-300">Ve a <a href="https://www.sii.cl" target="_blank" class="text-sky-400 hover:underline">www.sii.cl</a> y haz clic en "Mi SII".</p>
+                        <div class="mt-2 p-3 bg-slate-700 rounded-md border border-slate-600">
+                            <label for="rut-sim" class="block text-sm font-medium text-slate-200">RUT (simulado)</label>
+                            <input type="text" id="rut-sim" value="12.345.678-9" class="sii-input" readonly>
+                            <label for="clave-sim" class="block text-sm font-medium text-slate-200 mt-2">Clave (simulado)</label>
+                            <input type="password" id="clave-sim" value="********" class="sii-input" readonly>
+                            <button class="sii-button mt-3" disabled>Ingresar (simulado)</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">Paso 2: Navegar a Declaraciones Juradas</p>
+                        <p class="text-slate-300">Una vez dentro de "Mi SII", sigue esta ruta:</p>
+                        <p class="mt-1 p-2 bg-sky-900/50 border-l-4 border-sky-600 text-sky-300 rounded-md">
+                            Servicios online → Declaraciones Juradas → Declaraciones Juradas de Renta → Mis Declaraciones Juradas.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">Paso 3: Seleccionar Año Tributario</p>
+                        <div class="mt-1 warning-box">
+                            <p class="warning-box-content"><strong class="font-bold">¡Atención!</strong> Asegúrate de seleccionar el Año Tributario (AT) correcto. Por ejemplo, para informar las operaciones realizadas en el año calendario 2024, debes seleccionar el AT 2025.</p>
+                        </div>
+                        <p class="text-slate-300 mt-2">El sistema usualmente te mostrará el AT vigente, pero siempre verifica.</p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">Paso 4: Agregar la DJ 1929 (si no está en tu lista)</p>
+                        <p class="text-slate-300">Si la DJ 1929 no aparece en "Mis Declaraciones Juradas":</p>
+                        <ol class="list-decimal list-inside text-slate-300 ml-4 mt-1">
+                            <li>Busca una opción como "Otras Declaraciones" o "Agregar Declaración".</li>
+                            <li>Haz clic en "Todos" o similar para ver la lista completa.</li>
+                            <li>En el buscador, escribe "1929".</li>
+                            <li>Selecciona la "DJ 1929 sobre operaciones en el exterior" y pulsa "Agregar".</li>
+                        </ol>
+                    </div>
+                     <div class="mb-4">
+                        <p class="font-semibold text-slate-100">Paso 5: Iniciar la Declaración</p>
+                        <p class="text-slate-300">Una vez que la DJ 1929 esté en tu lista, busca la fila correspondiente y haz clic en el botón <strong class="text-sky-400">"Declarar"</strong>.</p>
+                         <div class="mt-2 p-3 bg-slate-700 rounded-md border border-slate-600 text-center">
+                            <button class="sii-button" disabled>Declarar (simulado)</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-8 p-5 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl font-medium text-slate-100 mb-4">Parte 2: Eligiendo el Método de Envío</h3>
+                    <p class="text-slate-300 mb-3">El SII te ofrecerá principalmente dos formas de ingresar la información:</p>
+                    <ul class="list-disc list-inside text-slate-300 ml-4 space-y-1">
+                        <li><strong class="text-sky-400">Formulario en pantalla:</strong> Ingresas los datos manualmente, campo por campo. Ideal para pocas operaciones.</li>
+                        <li><strong class="text-sky-400">Importador de datos:</strong> Subes un archivo (generalmente CSV) con todas tus operaciones. Ideal si tienes muchas operaciones o si tu intermediario te proporciona este archivo.</li>
+                    </ul>
+                    <div class="mt-4 info-box">
+                        <p class="info-box-content"><strong>Reflexiona:</strong> ¿Cuál método crees que te conviene más según tu situación?</p>
+                    </div>
+                </div>
+                <div class="mb-8 p-5 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl font-medium text-slate-100 mb-4">Parte 3: Llenado Manual (Formulario en Pantalla) - Simulación</h3>
+                    <p class="text-slate-300 mb-3">Si eliges "Formulario en pantalla", verás algo similar a esto:</p>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-slate-100 mb-2">Sección A: Identificación del Declarante</h4>
+                        <p class="text-slate-300">Tu RUT y Nombre/Razón Social vendrán completados por el sistema.</p>
+                        <div class="mt-2 p-3 bg-slate-700 rounded-md border border-slate-600">
+                            <label class="block text-sm font-medium text-slate-200">RUT: 12.345.678-9 (automático)</label>
+                            <label class="block text-sm font-medium text-slate-200 mt-1">Nombre: Juan Alberto Pérez González (automático)</label>
+                            <div class="mt-3 warning-box">
+                                <p class="text-sm warning-box-content"><strong class="font-bold">¡Importante!</strong> Los campos "Domicilio Calle", "Número", "Depto/Of/Local", "Población/Villa", "Comuna" y "Ciudad" correspondientes al declarante <strong class="font-bold">se dejan en blanco</strong> según las instrucciones del SII para esta DJ.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-slate-100 mb-2">Sección B: Detalle de Operaciones en el Exterior</h4>
+                        <p class="text-slate-300 mb-3">Aquí es donde ingresarás cada una de tus inversiones y rentas. Deberás agregar una fila por cada operación distinta.</p>
+                        <button class="sii-button mb-3" disabled>Agregar Operación (simulado)</button>
+                        <div class="overflow-x-auto">
+                            <table class="sii-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo Operación (Código)</th>
+                                        <th>País (Código)</th>
+                                        <th>Monto Inversión (Mon. Origen)</th>
+                                        <th>Monto Renta (Mon. Origen)</th>
+                                        <th>Impuesto Pagado Ext. (Mon. Origen)</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" value="A01" class="sii-input text-xs p-1 w-20" placeholder="Ej: A01" readonly></td>
+                                        <td><input type="text" value="USA" class="sii-input text-xs p-1 w-20" placeholder="Ej: USA" readonly></td>
+                                        <td><input type="number" value="5000" class="sii-input text-xs p-1 w-24" placeholder="Ej: 5000" readonly></td>
+                                        <td><input type="number" value="300" class="sii-input text-xs p-1 w-24" placeholder="Ej: 300" readonly></td>
+                                        <td><input type="number" value="45" class="sii-input text-xs p-1 w-24" placeholder="Ej: 45" readonly></td>
+                                        <td><button class="text-red-400 hover:text-red-300 text-xs" disabled>Eliminar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Tabla simplificada. El formulario real tiene más columnas (ej. montos en CLP, tipo de cambio, etc.).</p>
+                        <div class="mt-4 space-y-3">
+                            <p><strong class="text-slate-100">Campos Clave por Operación (explicación):</strong></p>
+                            <ul class="list-disc list-inside text-slate-300 ml-4 text-sm space-y-1">
+                                <li><strong>Tipo de Inversión/Renta (Código):</strong> El SII tiene códigos específicos para cada tipo (acciones, dividendos, intereses, etc.). Deberás consultarlos. <span class="text-slate-400">(Ver códigos - simulado)</span></li>
+                                <li><strong>País (Código):</strong> Código del país donde se realizó la inversión o se generó la renta. <span class="text-slate-400">(Ver códigos país - simulado)</span></li>
+                                <li><strong>Monto de Inversión:</strong> Costo original de la inversión. Informar incluso si no generó renta ese año.</li>
+                                <li><strong>Monto de Renta Bruta/Líquida:</strong> La ganancia obtenida.</li>
+                                <li><strong>Impuesto Pagado en el Extranjero:</strong> Lo que te retuvieron o pagaste allá.</li>
+                                <li><strong>Conversión a CLP:</strong> Todos los montos en moneda extranjera deben convertirse a pesos chilenos usando el <strong class="text-red-400">tipo de cambio observado al 31 de diciembre</strong> del año que se informa.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 info-box">
+                            <h5 class="info-box-title">Simulador de Ganancia de Capital (Ejemplo)</h5>
+                            <p class="text-sm info-box-content mb-2">Para rentas por venta de acciones (misma naturaleza, compradas y vendidas el mismo año):</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
+                                <div><label class="text-slate-200">Precio Compra (USD):</label><input type="number" id="compraUSD" class="sii-input p-1" readonly></div>
+                                <div><label class="text-slate-200">Precio Venta (USD):</label><input type="number" id="ventaUSD" class="sii-input p-1" readonly></div>
+                                <div><label class="text-slate-200">Tipo Cambio (31 Dic):</label><input type="number" id="tcGD" class="sii-input p-1" value="850" readonly></div>
+                            </div>
+                            <button class="sii-button text-sm py-1 px-2 mt-2" disabled>Calcular Ganancia (CLP)</button>
+                            <p class="text-sm info-box-content mt-1">Resultado: <span id="resultadoGanancia" class="font-bold"></span></p>
+                        </div>
+                        <div class="mt-4 warning-box">
+                             <p class="text-sm warning-box-content"><strong class="font-bold">¡No olvides Guardar!</strong> El formulario del SII suele tener un botón "Guardar Borrador". Úsalo frecuentemente para no perder tu avance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-8 p-5 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl font-medium text-slate-100 mb-4">Parte 4: Uso del Importador de Datos - Simulación</h3>
+                    <p class="text-slate-300 mb-3">Si tienes muchas operaciones, esta es tu mejor opción. Necesitarás un archivo (generalmente CSV) con un formato específico definido por el SII. Algunos brokers lo proporcionan.</p>
+                    <div class="p-3 bg-slate-700 rounded-md border border-slate-600">
+                        <label class="block text-sm font-medium text-slate-200">Subir archivo (simulado):</label>
+                        <input type="file" class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-700/30 file:text-sky-300 hover:file:bg-sky-600/40 mt-1" disabled/>
+                        <label for="rut-declarante-import" class="block text-sm font-medium text-slate-200 mt-3">RUT Declarante (o contador):</label>
+                        <input type="text" id="rut-declarante-import" class="sii-input" placeholder="Ingresa RUT" readonly>
+                        <button class="sii-button mt-3" disabled>Validar y Enviar (simulado)</button>
+                    </div>
+                </div>
+                <div class="p-5 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700/50">
+                    <h3 class="text-xl font-medium text-slate-100 mb-4">Parte 5: Pasos Finales</h3>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">1. Validar y Enviar</p>
+                        <p class="text-slate-300">Una vez que hayas ingresado toda la información (manual o por importador), el sistema te permitirá "Validar". Si hay errores, te los indicará. Corrige y luego presiona "Enviar Declaración".</p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold text-slate-100">2. Certificado de Recepción</p>
+                        <p class="text-slate-300">¡Felicitaciones! Si todo salió bien, el SII generará un Certificado de Recepción de tu DJ 1929. <strong class="text-red-400">Descárgalo y guárdalo muy bien</strong>. Es tu comprobante.</p>
+                        <div class="mt-2 p-3 bg-green-900/30 border-l-4 border-green-500 rounded-md text-center">
+                            <p class="text-green-300 font-semibold">✓ Declaración Recibida Exitosamente (simulado)</p>
+                            <button class="sii-button bg-green-600 hover:bg-green-700 mt-2 text-sm py-1 px-2" disabled>Descargar Certificado (simulado)</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-100">3. Verificar la Declaración (El "Hack" Útil)</p>
+                        <p class="text-slate-300 mb-1">A veces, el resumen que muestra el SII no es completo o tiene errores. Para ver el detalle real de lo que enviaste:</p>
+                        <ol class="list-decimal list-inside text-slate-300 ml-4 text-sm space-y-1">
+                            <li>Ve a "Mis Declaraciones Juradas".</li>
+                            <li>Busca tu DJ 1929 (debería decir "Aceptada").</li>
+                            <li>En lugar de "Consultar" directamente, haz clic en "Rectificar".</li>
+                            <li>Elige "Formulario en pantalla".</li>
+                            <li>Presiona "Cargar declaración anterior guardada".</li>
+                        </ol>
+                        <p class="text-slate-300 mt-1">Esto te mostrará el formulario completo tal como lo enviaste. ¡Compara los totales con tu información original!</p>
+                    </div>
+                </div>
+                 <div class="mt-8 warning-box">
+                    <h4 class="text-lg warning-box-title mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-1 align-text-bottom"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        Recordatorios de Plazos y Estrategia
+                    </h4>
+                    <ul class="list-disc list-inside warning-box-content space-y-1 mt-2">
+                        <li><strong>Plazo Oficial:</strong> Generalmente hasta el último día hábil de junio de cada año (para informar operaciones del año calendario anterior).</li>
+                        <li><strong>Estrategia para Crédito IPE:</strong> Si quieres que el crédito IPE aparezca en tu propuesta de Formulario 22 (Operación Renta de abril), es <strong class="font-bold">muy recomendable presentar la DJ 1929 antes de la Operación Renta</strong>, idealmente en marzo.</li>
+                        <li><strong>¡No te apures el 1 de Abril!:</strong> No es buena idea declarar tu Renta (F22) el primer día. Espera unos días a que el sistema del SII esté más estable y con información cruzada (incluida tu DJ 1929 si la presentaste antes).</li>
+                        <li><strong>DJ 1929 es INFORMAR, F22 es PAGAR:</strong> Recuerda que la DJ 1929 es para informar. El pago (o no) de impuestos por rentas extranjeras se concreta en el Formulario 22.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="modulo4" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 4: Consecuencias del Incumplimiento</h2>
+                <p class="mb-6 text-slate-300">Cumplir con tus obligaciones tributarias es fundamental. No presentar la DJ 1929, hacerlo fuera de plazo, o con información incorrecta o incompleta, puede acarrear diversas consecuencias. ¡Es mejor estar informado para evitar problemas!</p>
+                <div class="space-y-6">
+                    <div class="p-5 border border-red-700 rounded-lg bg-slate-800 hover:bg-slate-700/50 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl sm:text-2xl font-medium text-red-400 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+                            </svg>
+                            Sanciones Monetarias (Multas)
+                        </h3>
+                        <p class="text-slate-300 leading-relaxed mb-3">
+                            El Código Tributario establece diversas multas. Las más comunes para esta DJ son:
+                        </p>
+                        <ul class="list-disc list-inside text-slate-300 ml-4 space-y-2">
+                            <li>
+                                <strong class="text-red-400">No presentación o presentación fuera de plazo:</strong>
+                                Generalmente, la multa es de <strong class="text-red-400">1 Unidad Tributaria Mensual (UTM) a 1 Unidad Tributaria Anual (UTA)</strong>.
+                                <span class="tooltip">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline text-sky-500 cursor-pointer ml-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>
+                                    <span class="tooltiptext">Referencia: Art. 97 N°1 o Art. 109 del Código Tributario, según corresponda.</span>
+                                </span>
+                            </li>
+                            <li>
+                                <strong class="text-red-400">Presentación con errores, incompleta o maliciosamente falsa:</strong>
+                                Las multas pueden variar significativamente, desde porcentajes de los impuestos eludidos hasta montos fijos más altos si se considera que hubo intención de engañar al fisco.
+                            </li>
+                        </ul>
+                        <div class="mt-4 danger-box">
+                            <h4 class="danger-box-title mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-1 align-text-bottom"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                                ¡Multa Especial por Crédito IPE Potencial!
+                            </h4>
+                            <p class="danger-box-content leading-relaxed">
+                                Si estás obligado a presentar la DJ 1929 porque tienes derecho a usar el Crédito por Impuestos Pagados en el Extranjero (IPE) y <strong class="font-bold">no la presentas o lo haces fuera de plazo</strong>, la multa es más específica y severa:
+                                <strong class="block mt-1">10 Unidades Tributarias Mensuales (UTM), aumentada en 1 UTM por cada mes o fracción de mes de retraso, con un tope máximo de 100 UTM.</strong>
+                            </p>
+                            <p class="text-xs danger-box-content opacity-75 mt-2">
+                                (Referencia: Artículo 109, inciso tercero, del Código Tributario, modificado por la Ley N°20.780 y aclarado en Circular SII N°48 de 2022). El SII puede girar esta multa de inmediato.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-5 border border-yellow-700 rounded-lg bg-slate-800 hover:bg-slate-700/50 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl sm:text-2xl font-medium text-yellow-400 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075-.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 5.25-5.25v-2.918m-9.718 5.25H9.75a2.25 2.25 0 0 1 2.25 2.25H4.575M15.75 15.75A2.25 2.25 0 0 1 13.5 18h-3a2.25 2.25 0 0 1-2.25-2.25V15.75m6 0V18" />
+                            </svg>
+                            Otros Riesgos y Consecuencias
+                        </h3>
+                        <ul class="list-disc list-inside text-slate-300 ml-4 space-y-2">
+                            <li>
+                                <strong class="text-yellow-400">Pérdida del Derecho al Crédito IPE:</strong> Si no presentas la DJ 1929, <strong class="font-bold">no podrás utilizar el crédito por impuestos pagados en el extranjero</strong> en tu Formulario 22. Esto podría significar pagar más impuestos en Chile de lo que correspondería.
+                            </li>
+                            <li>
+                                <strong class="text-yellow-400">Procesos de Fiscalización del SII:</strong> El SII cuenta con mecanismos de <strong class="font-bold">cruce de información</strong> cada vez más sofisticados, incluyendo acuerdos internacionales como el Estándar Común de Reporte (CRS) y FATCA (con EE.UU.). Si detectan inconsistencias entre lo que informas (o no informas) y la información que reciben de otras jurisdicciones, podrías ser objeto de una <strong class="font-bold">revisión o auditoría</strong>.
+                            </li>
+                            <li>
+                                <strong class="text-yellow-400">Dificultad para Justificar Origen de Fondos:</strong> No declarar correctamente tus inversiones y rentas en el extranjero puede complicar la justificación del origen de esos fondos o de incrementos patrimoniales en el futuro.
+                            </li>
+                             <li>
+                                <strong class="text-yellow-400">Impacto en tu Historial Tributario:</strong> Los incumplimientos pueden afectar tu historial como contribuyente ante el SII.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 info-box">
+                    <h4 class="info-box-title mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        La Mejor Estrategia: Cumplir a Tiempo
+                    </h4>
+                    <p class="info-box-content leading-relaxed">
+                        La forma más sencilla de evitar todas estas complicaciones es <strong class="font-bold">preparar tu información con anticipación y presentar tu DJ 1929 de forma correcta y dentro de los plazos establecidos</strong>. Este tutorial está diseñado para ayudarte precisamente con eso.
+                    </p>
+                    <p class="info-box-content leading-relaxed mt-2">
+                        Si tienes dudas complejas o tu situación es particular, no dudes en <strong class="font-bold">buscar asesoría profesional</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <section id="modulo5" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 5: Preguntas Frecuentes (FAQ) y Recursos Adicionales</h2>
+                <p class="mb-6 text-slate-300">Aquí encontrarás respuestas a algunas dudas comunes sobre la DJ 1929, así como enlaces a información oficial y otros recursos que pueden ser de utilidad.</p>
+                <div class="mb-10">
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-4">Preguntas Frecuentes (FAQ)</h3>
+                    <div class="space-y-4">
+                        <div class="faq-item">
+                            <button onclick="toggleDetails('faq1_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq1_ans">
+                                ¿Qué pasa si no obtuve rentas de mis inversiones en el extranjero durante el año, igual debo presentar la DJ 1929?
+                                <span class="arrow-down transform transition-transform duration-200">▼</span>
+                            </button>
+                            <div id="faq1_ans" class="hidden leading-relaxed text-sm">
+                                <p>Sí. La DJ 1929 no solo informa rentas, sino también las <strong class="font-semibold text-sky-300">inversiones y operaciones realizadas en el exterior</strong>. Aunque no hayas tenido ganancias (o incluso si tuviste pérdidas), debes informar el monto de la inversión y los detalles de la operación si cumples con los criterios de obligatoriedad (ej. tienes derecho a crédito IPE por impuestos pagados en el extranjero en algún momento, o el SII lo exige por el tipo de inversión).</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button onclick="toggleDetails('faq2_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq2_ans">
+                                ¿Las criptomonedas se informan en la DJ 1929?
+                                <span class="arrow-down transform transition-transform duration-200">▼</span>
+                            </button>
+                            <div id="faq2_ans" class="hidden leading-relaxed text-sm">
+                                <p>No directamente en la DJ 1929 como "inversión extranjera". El SII ha indicado que las criptomonedas son consideradas <strong class="font-semibold text-sky-300">activos digitales o virtuales</strong>. Las rentas obtenidas por la venta de criptomonedas (ganancias de capital) se declaran en el Formulario 22, y pueden estar sujetas a impuestos dependiendo de tu situación particular. La DJ 1929 se enfoca en inversiones más tradicionales en el exterior (acciones, cuotas de fondos, etc.). Es importante estar atento a las actualizaciones del SII sobre este tema.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button onclick="toggleDetails('faq3_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq3_ans">
+                                Si la plata de mis inversiones extranjeras nunca entró a Chile, ¿igual debo declararla?
+                                <span class="arrow-down transform transition-transform duration-200">▼</span>
+                            </button>
+                            <div id="faq3_ans" class="hidden leading-relaxed text-sm">
+                                <p>Sí. El <strong class="font-semibold text-sky-300">Principio de Renta Mundial</strong> (explicado en el Módulo 1) establece que los contribuyentes con domicilio o residencia en Chile tributan por sus rentas de fuente mundial, independientemente de si esos fondos ingresaron físicamente al país o se mantuvieron en el extranjero. La DJ 1929 es el medio para informar esas inversiones y rentas.</p>
+                            </div>
+                        </div>
+                         <div class="faq-item">
+                            <button onclick="toggleDetails('faq4_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq4_ans">
+                                ¿Qué tipo de cambio debo usar para convertir los montos a pesos chilenos?
+                                <span class="arrow-down transform transition-transform duration-200">▼</span>
+                            </button>
+                            <div id="faq4_ans" class="hidden leading-relaxed text-sm">
+                                <p>Debes utilizar el <strong class="font-semibold text-sky-300">tipo de cambio observado publicado por el Banco Central de Chile al 31 de diciembre</strong> del año calendario que estás informando. Por ejemplo, para las operaciones del año 2024 (que se informan en el AT 2025), usarás el tipo de cambio del 31 de diciembre de 2024. El SII suele publicar esta información en su sitio web, o puedes consultarla en el Banco Central.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button onclick="toggleDetails('faq5_ans', this.querySelector('span'))" aria-expanded="false" aria-controls="faq5_ans">
+                                ¿Los administradores de fondos (Fondos Mutuos, Fondos de Inversión) presentan la DJ 1929 por mí?
+                                <span class="arrow-down transform transition-transform duration-200">▼</span>
+                            </button>
+                            <div id="faq5_ans" class="hidden leading-relaxed text-sm">
+                                <p>Los administradores de fondos que invierten en el exterior están obligados a presentar la DJ 1929 informando las operaciones del fondo. Sin embargo, <strong class="font-semibold text-sky-300">tú como partícipe o inversionista también podrías tener la obligación de presentar tu propia DJ 1929</strong> si, por ejemplo, tienes otras inversiones directas en el extranjero o si necesitas usar el crédito IPE por impuestos retenidos a través del fondo.</p>
+                                <p class="mt-2">Generalmente, el administrador del fondo te entregará un <strong class="font-semibold text-sky-300">certificado o informe</strong> con la información que necesitas para tu propia declaración (incluyendo tu porción de rentas e impuestos pagados en el extranjero). Revisa siempre tu situación particular y los documentos que te entrega tu intermediario.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-medium text-slate-100 mb-4">Recursos Adicionales</h3>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        La información tributaria puede cambiar. Siempre es recomendable consultar las fuentes oficiales y, si es necesario, buscar asesoría profesional.
+                    </p>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="https://www.sii.cl/servicios_online/1043-.html" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" /></svg>
+                                Página de Declaraciones Juradas del SII
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.sii.cl/normativa_legislacion/circulares/2022/circu48.pdf" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                Circular SII N° 48 de 2022 (Instruye sobre DJ 1929 y otras)
+                            </a>
+                        </li>
+                         <li>
+                            <a href="https://www.sii.cl/documentos/circulares/2016/circu31.pdf" target="_blank" class="text-sky-400 hover:text-sky-300 hover:underline font-medium flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                Circular SII N° 31 de 2016 (Modificaciones al Art. 41 A LIR - Crédito IPE)
+                            </a>
+                        </li>
+                        <li>
+                            <p class="text-slate-300 mt-3">
+                                <strong class="font-semibold text-slate-100">Instrucciones Específicas de la DJ 1929:</strong> Cada año, el SII publica las instrucciones detalladas para cada DJ. Busca "Instrucciones DJ 1929 Año Tributario [XXXX]" en el sitio del SII.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-8 warning-box">
+                    <h4 class="warning-box-title mb-2 flex items-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline mr-2"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.355a7.5 7.5 0 0 1-7.5 0" /> <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /> </svg>
+                        Considera Asesoría Profesional
+                    </h4>
+                    <p class="warning-box-content leading-relaxed">
+                        Si tus inversiones son complejas, tienes dudas significativas, o simplemente prefieres la tranquilidad de que un experto revise tu caso, <strong class="font-bold">no dudes en contactar a un contador o asesor tributario</strong> con experiencia en tributación internacional. Una buena asesoría puede ahorrarte tiempo, dinero y posibles problemas con el SII.
+                    </p>
+                </div>
+            </section>
+
+            <section id="modulo6" class="p-6 bg-slate-800 rounded-xl shadow-xl module-content hidden">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-sky-500 mb-6 pb-3 border-b-2 border-sky-700">Módulo 6: Tips y Advertencias Finales</h2>
+                <p class="mb-6 text-slate-300">Para cerrar este tutorial, aquí tienes algunos consejos prácticos y recordatorios de errores comunes que te ayudarán a navegar el proceso de la DJ 1929 con mayor seguridad y evitar contratiempos.</p>
+
+                <div class="space-y-6">
+                    <div class="tip-box">
+                        <h3 class="tip-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            Tip #1: ¡No dejes para última hora!
+                        </h3>
+                        <p class="tip-box-content leading-relaxed">
+                            Reunir todos los documentos, entender la información y llenar el formulario puede tomar tiempo, especialmente si es tu primera vez o tienes varias operaciones. <strong class="font-semibold">Comienza el proceso con suficiente anticipación</strong> al plazo de vencimiento (último día hábil de junio, o antes si buscas que el crédito IPE aparezca en tu propuesta de F22). Así tendrás margen para resolver dudas o corregir errores sin apuros.
+                        </p>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3 class="warning-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                            Advertencia: Errores comunes en el llenado
+                        </h3>
+                        <ul class="list-disc list-inside warning-box-content space-y-1">
+                            <li><strong class="font-semibold">Dejar campos de domicilio en blanco (Sección A):</strong> Recuerda que para el declarante, estos campos se omiten.</li>
+                            <li><strong class="font-semibold">Tipo de cambio incorrecto:</strong> Usar siempre el tipo de cambio observado al 31 de diciembre del año que se informa. No uses el tipo de cambio del día de la operación para la conversión final a CLP en la DJ.</li>
+                            <li><strong class="font-semibold">Confundir renta bruta con líquida:</strong> Asegúrate de informar lo que corresponde según las instrucciones del SII y los certificados de tu broker.</li>
+                            <li><strong class="font-semibold">No informar todas las operaciones:</strong> Debes incluir todas las inversiones y rentas del exterior que correspondan, incluso si no generaron ganancias o si tuviste pérdidas.</li>
+                             <li><strong class="font-semibold">Errores en códigos de país o tipo de operación:</strong> Verifica bien los códigos que proporciona el SII.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-box">
+                        <h3 class="tip-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                            Tip #2: Guarda TODO (digital y físico si es posible)
+                        </h3>
+                        <p class="tip-box-content leading-relaxed">
+                            Conserva copias de:
+                        </p>
+                        <ul class="list-disc list-inside tip-box-content space-y-1 mt-1">
+                            <li>Todas las cartolas y certificados de tus intermediarios.</li>
+                            <li>Comprobantes de impuestos pagados en el extranjero.</li>
+                            <li>El archivo CSV si usaste el importador.</li>
+                            <li>Capturas de pantalla del proceso de declaración en el SII (especialmente si hay errores o mensajes importantes).</li>
+                            <li><strong class="font-semibold">El Certificado de Recepción de la DJ 1929.</strong> Este es tu principal respaldo.</li>
+                            <li>Tu Formulario 22 donde aplicaste el crédito IPE.</li>
+                        </ul>
+                        <p class="tip-box-content leading-relaxed mt-1">
+                            Guarda estos documentos por varios años (el SII puede fiscalizar períodos anteriores).
+                        </p>
+                    </div>
+
+                    <div class="danger-box">
+                        <h3 class="danger-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                            Advertencia Clave: El mito de "si no entró a Chile, no declaro"
+                        </h3>
+                        <p class="danger-box-content leading-relaxed">
+                            Es un error común pensar que si las ganancias o inversiones se mantienen en el extranjero y no "entran" a una cuenta bancaria chilena, no hay que declararlas. <strong class="font-semibold">Esto es incorrecto</strong> debido al Principio de Renta Mundial. Debes informar tus rentas e inversiones mundiales.
+                        </p>
+                    </div>
+
+                    <div class="tip-box">
+                        <h3 class="tip-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h12A2.25 2.25 0 0 0 20.25 14.25V3M3.75 14.25m-1.5 0h3m-3 0c0 .621.504 1.125 1.125 1.125h16.5c.621 0 1.125-.504 1.125-1.125m-18.75 0c0-1.101.899-1.875 2.25-1.875h14.25c1.352 0 2.25.774 2.25 1.875M3.75 14.25v2.25c0 .621.504 1.125 1.125 1.125h16.5c.621 0 1.125-.504 1.125-1.125v-2.25" /></svg>
+                            Tip #3: DJ 1929 y Formulario 22 van de la mano
+                        </h3>
+                        <p class="tip-box-content leading-relaxed">
+                            Recuerda siempre que la DJ 1929 es para <strong class="font-semibold">INFORMAR</strong> tus operaciones y rentas extranjeras, y es un requisito para usar el crédito IPE. El <strong class="font-semibold">PAGO</strong> (o la determinación de si hay impuesto a pagar) por esas rentas se realiza en tu Declaración Anual de Renta (Formulario 22). Son dos procesos distintos pero complementarios.
+                        </p>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3 class="warning-box-title mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="m9.443 13.443-1.45-1.45a1.5 1.5 0 0 1 0-2.121l1.45-1.45a1.5 1.5 0 0 1 2.121 0l1.45 1.45a1.5 1.5 0 0 1 0 2.121l-1.45 1.45a1.5 1.5 0 0 1-2.121 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.343V12m0 6.343V12m6.343-5.657L12 12m5.657 6.343L12 12m-6.343 5.657L12 12m-5.657-6.343L12 12" /></svg>
+                            Advertencia: No te apresures a declarar tu Renta (F22) el 1 de abril
+                        </h3>
+                        <p class="warning-box-content leading-relaxed">
+                            Si bien es tentador ser de los primeros, es recomendable esperar unos días después del inicio de la Operación Renta. Esto da tiempo al SII para cargar toda la información de agentes retenedores y otras DJs (como la tuya, si la presentaste con anticipación). Una propuesta de F22 más completa puede evitarte rectificatorias.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-10 info-box">
+                    <h3 class="info-box-title mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        ¡Has llegado al final del tutorial!
+                    </h3>
+                    <p class="info-box-content leading-relaxed">
+                        Esperamos que esta guía te haya sido de gran utilidad para desmitificar la DJ 1929. Recuerda que la clave está en la <strong class="font-semibold">organización, la anticipación y la consulta de fuentes oficiales</strong>.
+                    </p>
+                    <p class="info-box-content leading-relaxed mt-2">
+                        ¡Mucho éxito en tu declaración!
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="mt-12 pt-8 border-t border-slate-700 text-center text-sm text-slate-400">
+            <p>&copy; <span id="currentYear"></span> Milko Yunusic (Contenido adaptado para tutorial) - Declaración Jurada 1929.</p>
+            <p class="mt-1">Este tutorial tiene fines educativos. Verifica siempre la información en las fuentes oficiales del SII y considera buscar asesoría profesional para tu caso particular.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleDetails(id, buttonOrArrow) {
+            const element = document.getElementById(id);
+            let arrowSpan;
+
+            if (buttonOrArrow && buttonOrArrow.tagName === 'SPAN') {
+                arrowSpan = buttonOrArrow;
+            } else if (buttonOrArrow && buttonOrArrow.querySelector) {
+                 arrowSpan = buttonOrArrow.querySelector('span.arrow-down, span.arrow-up');
+            }
+
+            const isHidden = element.classList.toggle('hidden');
+            const buttonElement = element.previousElementSibling; // Assuming button is always previous sibling
+
+            if (isHidden) {
+                if(arrowSpan) arrowSpan.innerHTML = '▼'; // Or your preferred down arrow
+                if(buttonElement && buttonElement.tagName === 'BUTTON') buttonElement.setAttribute('aria-expanded', 'false');
+            } else {
+                if(arrowSpan) arrowSpan.innerHTML = '▲'; // Or your preferred up arrow
+                if(buttonElement && buttonElement.tagName === 'BUTTON') buttonElement.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        function showModule(moduleId, clickedButton) {
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.add('hidden');
+            });
+            const activeModule = document.getElementById(moduleId);
+            if (activeModule) {
+                activeModule.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.module-button').forEach(button => {
+                button.classList.remove('active');
+                // Tailwind classes for active/inactive are managed in the <style> block now
+                // or could be directly managed here if preferred.
+                // For simplicity, the .active class toggles styles defined in CSS.
+            });
+            clickedButton.classList.add('active');
+            
+            if (activeModule) {
+                activeModule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function calcularGanancia() {
+            const compraUSD = parseFloat(document.getElementById('compraUSD').value) || 0;
+            const ventaUSD = parseFloat(document.getElementById('ventaUSD').value) || 0;
+            const tc = parseFloat(document.getElementById('tcGD').value) || 0;
+            const resultadoElement = document.getElementById('resultadoGanancia');
+
+            if (!resultadoElement) return; // Exit if element doesn't exist
+
+            if (tc === 0) {
+                resultadoElement.textContent = "Por favor, ingresa un tipo de cambio válido.";
+                return;
+            }
+
+            const gananciaUSD = ventaUSD - compraUSD;
+            const gananciaCLP = gananciaUSD * tc;
+
+            if (ventaUSD_init > 0 || compraUSD_init > 0 || tc > 0) { // Check if there are any values to display
+                 resultadoElement.textContent = `${gananciaCLP.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })} (Ganancia en USD: ${gananciaUSD.toLocaleString('en-US', { style: 'currency', currency: 'USD' })})`;
+            } else {
+                 resultadoElement.textContent = "---";
+            }
+        }
+        
+        // Initialize current year and other dynamic elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const firstModuleButton = document.querySelector('.module-button');
+            if (firstModuleButton) {
+                 showModule('modulo1', firstModuleButton);
+            }
+
+            // Initialize arrows for details sections (non-FAQ)
+            document.querySelectorAll('button[onclick^="toggleDetails"]').forEach(button => {
+                if (!button.closest('.faq-item')) { // Exclude FAQ items as they are handled differently
+                    const targetId = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    const targetElement = document.getElementById(targetId);
+                    const arrow = button.querySelector('span.arrow-down, span.arrow-up');
+                    if (targetElement && arrow) {
+                        if (targetElement.classList.contains('hidden')) {
+                            arrow.textContent = '▼';
+                            button.setAttribute('aria-expanded', 'false');
+                        } else {
+                            arrow.textContent = '▲';
+                            button.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+                }
+            });
+            
+            // Initialize arrows for FAQ items specifically
+             document.querySelectorAll('.faq-item button').forEach(button => {
+                const targetId = button.getAttribute('aria-controls');
+                const targetElement = document.getElementById(targetId);
+                const arrow = button.querySelector('span.arrow-down'); // FAQ items use .arrow-down
+                 if (targetElement && arrow) {
+                    if (targetElement.classList.contains('hidden')) {
+                        arrow.innerHTML = '▼';
+                        button.setAttribute('aria-expanded', 'false');
+                    } else {
+                        arrow.innerHTML = '▲';
+                        button.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+
+            // Call calcularGanancia if its elements exist, for initial display
+            if (document.getElementById('compraUSD') && document.getElementById('ventaUSD') && document.getElementById('tcGD') && document.getElementById('resultadoGanancia')) {
+                 // Set initial values for example if needed, then call
+                 // For now, it will calculate based on readonly values or 0 if empty.
+                const compraUSD_init = parseFloat(document.getElementById('compraUSD').value) || 0;
+                const ventaUSD_init = parseFloat(document.getElementById('ventaUSD').value) || 0;
+                // tcGD has a value in HTML, so it will be used.
+                // To make the function display something, ensure the condition in calcularGanancia allows it.
+                // For now, it will show "---" if compraUSD and ventaUSD are 0.
+                calcularGanancia(); 
+            }
+        });
+
+    </script>
+
+</body>
+</html>
