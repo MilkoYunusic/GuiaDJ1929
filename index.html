@@ -199,7 +199,7 @@
        .contact-button {
   display: inline-block;
   border: 2px solid #1A237E;
-  color: #1A237E;
+  color: #60a5fa; /* Azul más tenue */
   background-color: transparent;
   text-decoration: none;
   padding: 12px 24px;
@@ -208,7 +208,8 @@
   font-size: 16px;
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 4px 6px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  margin-top: 20px;
+  text-align: center;
+  margin: 20px auto; /* Centra horizontalmente */
 }
 
 .contact-button:hover {
@@ -216,6 +217,14 @@
   color: #FFFFFF;
   transform: translateY(-2px) scale(1.05);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.2);
+}
+
+/* Ajuste para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .contact-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
 }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -329,9 +338,10 @@
                             </ul>
                         </p>
                         <p class="mt-1"><strong>¿Para qué sirve entonces?:</strong> La DJ 1929 proporciona al SII la información necesaria para verificar la correcta declaración de tus rentas mundiales y el uso del crédito IPE en tu Formulario 22.</p>
-                    </div>
-                    <a href="mailto:milkoyunusic@gmail.com" class="contact-button">
-                    ¿Te gustaría saber más? ¡Escríbeme!
+                    </div> 
+                    <div style="text-align: center;">
+                     <a href="mailto:milkoyunusic@gmail.com" class="contact-button">
+                      ¿Te gustaría saber más? ¡Escríbeme!
                     </a>
                 </div>
             </section>
@@ -578,6 +588,7 @@
                         <li><strong>¡No te apures el 1 de Abril!:</strong> No es buena idea declarar tu Renta (F22) el primer día. Espera unos días a que el sistema del SII esté más estable y con información cruzada (incluida tu DJ 1929 si la presentaste antes).</li>
                         <li><strong>DJ 1929 es INFORMAR, F22 es PAGAR:</strong> Recuerda que la DJ 1929 es para informar. El pago (o no) de impuestos por rentas extranjeras se concreta en el Formulario 22.</li>
                     </ul>
+                     <div style="text-align: center;">
                      <a href="https://wa.me/56979382147?text=Hola,%20tengo%20una%20duda%20sobre%20los%20plazos%20de%20la%20DJ%201929." target="_blank" rel="noopener noreferrer" class="contact-button">
                          ¿Te gustaría saber más? ¡Contáctame!
                      </a>
@@ -758,6 +769,7 @@
                 <p class="mt-10 text-center text-slate-300 text-lg">
                     ¡Has completado la guía! Esperamos que esta información te sea de gran utilidad. Recuerda que la clave está en la <strong class="text-sky-400">organización, la anticipación y la información correcta</strong>.
                 </p>
+                <div style="text-align: center;">
                 <a href="https://wa.me/56979382147?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20inversiones%20en%20el%20extranjero." target="_blank" rel="noopener noreferrer" class="contact-button">
                    ¿Quieres saber más sobre inversiones en el extranjero? ¡Envíame un WhatsApp!
                 </a>
