@@ -497,7 +497,7 @@
                     <div>
                         <h4 class="text-lg font-semibold text-slate-100 mb-2">Sección B: Detalle de Operaciones en el Exterior</h4>
                         <p class="text-slate-300 mb-3">Aquí es donde ingresarás cada una de tus inversiones y rentas. Deberás agregar una fila por cada operación distinta.</p>
-                        <button class="sii-button mb-3" disabled>Agregar Operación (simulado)</button>
+                        <button class="sii-button mb-3" disabled>"Rut Representante"/el tuyo</button>
                         <div class="overflow-x-auto">
                             <table class="sii-table">
                                 <thead>
@@ -526,11 +526,15 @@
                         <div class="mt-4 space-y-3">
                             <p><strong class="text-slate-100">Campos Clave por Operación (explicación):</strong></p>
                             <ul class="list-disc list-inside text-slate-300 ml-4 text-sm space-y-1">
-                                <li><strong>Tipo de Inversión/Renta (Código):</strong> El SII tiene códigos específicos para cada tipo (acciones, dividendos, intereses, etc.). Deberás consultarlos. <span class="text-slate-400">(Ver códigos - simulado)</span></li>
+                                <li><strong>Operación (Código):</strong> El SII tiene códigos específicos para cada tipo (acciones, dividendos, intereses, etc.). Deberás consultarlos. <span class="text-slate-400">(Ver códigos - simulado)</span></li>         
+                                <li><strong>Razón Social:</strong> Nombre Compañía.</li>
+                                <li><strong>TAX-ID</strong> Código Compañía.</li>
                                 <li><strong>País (Código):</strong> Código del país donde se realizó la inversión o se generó la renta. <span class="text-slate-400">(Ver códigos país - simulado)</span></li>
-                                <li><strong>Monto de Inversión:</strong> Costo original de la inversión. Informar incluso si no generó renta ese año.</li>
-                                <li><strong>Monto de Renta Bruta/Líquida:</strong> La ganancia obtenida.</li>
-                                <li><strong>Impuesto Pagado en el Extranjero:</strong> Lo que te retuvieron o pagaste allá.</li>
+                                <li><strong>Relación:</strong> "99" (En la mayoría de los casos).</li>
+                                <li><strong>Participación:</strong>  "0" (Si Relación = 99).</li>
+                                <li><strong>Monto actualizado al 31.12:</strong> Saldo al 31/12 del año anterior.</li>
+                                <li><strong>Monto de Renta del Exterior:</strong> La ganancia obtenida.</li>
+                                <li><strong>Impuesto a la Remesa:</strong> Lo que te retuvieron o pagaste allá.</li>
                                 <li><strong>Conversión a CLP:</strong> Todos los montos en moneda extranjera deben convertirse a pesos chilenos usando el <strong class="text-red-400">tipo de cambio observado al 31 de diciembre</strong> del año que se informa.</li>
                             </ul>
                         </div>
